@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+
+<body>
+<h1>HOME</h1>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>sp500</th>
+        <th>dma50</th>
+
+    </tr>
+    {% for item in query_results %}
+        <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.sp500 }}</td>
+            <td>{{ item.dma50 }}</td>
+
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

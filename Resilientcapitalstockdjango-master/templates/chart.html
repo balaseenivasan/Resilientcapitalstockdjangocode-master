@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    <!--# <script src="http://code.highcharts.com/highcharts.js"></script> Load in jQuery and HighCharts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.6/js/highstock.js"></script>
+
+{% endblock %}
+
+{% block body_block %}
+  <div id="container" style="width: 75%;">
+    <canvas id="pie-chart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+   var options = {
+  type: 'line',
+  data: {
+    labels: {{date | safe}},
+    datasets: [
+	    {
+	      label: '# of Votes',
+	      data: {{sp500_series}},
+      	  borderWidth: 1
+    	},
+			{
+				label: '# of Points',
+				data: {{dma50_series}},
+				borderWidth: 1
+			}
+		]
+  },
+  options: {
+  	scales: {
+  	    xAxes: [ {
+            type: "time",
+             time: {
+                        format: timeFormat,
+                        tooltipFormat: 'll'
+                    },
+                    scaleLabel: {
+                        display:     true,
+                        labelString: 'Date'
+                    }
+            }
+          }
+        ],
+    	yAxes: [{
+        ticks: {
+					reverse: false
+        }
+      }]
+    }
+  }
+}
+
+var ctx = document.getElementById('chartJSContainer').getContext('2d');
+new Chart(ctx, options);
+</script>
+
+{% endblock %}

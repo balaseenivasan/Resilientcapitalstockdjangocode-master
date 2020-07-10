@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    <!--# <script src="http://code.highcharts.com/highcharts.js"></script> Load in jQuery and HighCharts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.6/js/highstock.js"></script>
+
+{% endblock %}
+
+{% block body_block %}
+<div id="container"></div>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+<script>
+const timezone = new Date().getTimezoneOffset()
+  Highcharts.setOptions({
+    global: {
+        timezoneOffset: timezone
+    }
+});
+  Highcharts.stockChart('container', {
+      chart: {
+          zoomType: 'x',
+          type: 'line',
+          marginTop: 50,
+          height: 700,
+          width:1000
+      },
+      credits: {
+      enabled: false
+    },
+      rangeSelector: {
+            allButtonsEnabled: true,
+            selected: 2
+        },
+      title: {
+          text: 'S&P 500 Up Issues Ratio'
+      },
+       xAxis: {
+
+
+      type: 'datetime',
+      dateTimeLabelFormats: {
+
+            day: '%e. %b',
+            week: '%e. %b',
+            month: '%b \'%y',
+            year: '%Y'
+        },
+    },
+
+      yAxis: [{
+        lineWidth: 0,
+        height :150,
+        opposite: true,
+        tickposition:'outside',
+        top:150,
+        visible:true,
+        labels:{
+                align:'right',
+                x:10
+            },
+
+      }, {
+        lineWidth: 0,
+        height :200,
+        opposite: true,
+        tickposition:'outside',
+        top :300,
+        visible:true,
+        labels:{
+                align:'right',
+                x:10
+            },
+
+      }],
+
+      series: [ {
+          yAxis: 1,
+          xAxis:0,
+          y :-30,
+          name: 'SPUpIssuesRadio',
+          data: {{ dma200_series | safe }},
+          color: 'red',
+          showInLegend:true,
+          tooltip: {
+                valueDecimals: 2
+            }
+
+      },{
+          yAxis: 0,
+          name: 'S&P 500',
+          data: {{ sp500_series | safe}},
+          color: 'green',
+          showInLegend:true,
+          tooltip: {
+                valueDecimals: 2
+            }
+
+      }]
+  });
+
+
+</script>
+<div id="container1" style="height: 100%; width:90%";position:absolute;>
+<div class='col-md-12';>
+    <div class="panel panel-default";style="height: 400; width:100";>
+        <div class="panel-heading">
+            <h3 class="panel-title">Indicator Details and Other Charts</h3>
+        </div>
+        <div class="panel-body">
+            <div class="tabbable-line">
+                <ul class="nav nav-tabs">
+
+        <li class="#active">
+            <a href="#detail" data-toggle="tab" aria-expanded="true">
+                Indicator Detail
+            </a>
+        </li>
+
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="detail">
+           <div class="well">
+                 <h4>
+                     <b>
+                           Time Frame:
+
+                                Medium-Term
+
+                        </b>
+                    </h4>
+                    <h4>
+                        <b>
+                            Update Schedule:
+
+                                Daily by 6:00 PM EST
+
+                        </b>
+                    </h4>
+
+                    <h4>
+                        <b>
+                            Source:
+
+                                Resilient Capital
+
+                        </b>
+                    </h4>
+
+                </div>
+
+
+        <h4>
+            <b>Construction:</b>
+        </h4>
+        <p>The Smart Money Confidence and Dumb Money Confidence indices are a unique innovation that allows subscribers to see, in one quick glance, what the "good" market timers are doing with their money compared to what "bad" market timers are doing. </p>
+
+<p>Our Confidence indices use mostly real-money gauges - there are few opinions involved here.
+Generally, we want to follow the Smart Money traders when they reach an extreme - we want to bet on a market rally when they are confident of rising prices, and we want to be short (or in cash) when they are expecting a market decline. The higher the confidence number, the more aggressively we should be looking for higher prices.</p>
+
+<p>Examples of some Smart Money indicators include the OEX put/call and open interest ratios, commercial hedger positions in the equity index futures, and the current relationship between stocks and bonds.</p>
+
+<p>In contrast to the Smart Money, we want to do the opposite of what the Dumb Money is doing when they are at an extreme.  These traders have proven themselves over history to be bad at market timing.  They get very bullish after a market rally, and bearish after a market fall.  By the time the majority of them catch on to a trend, it?s too late - the trend is about to reverse.  It tells us how confident we should be in selling the market.
+ </p>
+<p>Examples of some Dumb Money indicators include the equity-only put/call ratio, the flow into and out of the Rydex series of index mutual funds, and small speculators in equity index futures contracts. We also chart the spread between the Smart Money and Dumb Money.  This gives us a quick view of the difference between the two groups of traders.  Because the "dumb money" follows trends, and the "smart money" generally goes against trends, the "dumb money" is usually correct during the meat of the trend.  So when the Dumb Money Confidence is higher than the Smart Money Confidence, that means sentiment is positive.</p>
+
+<p>When it becomes too positive, however, then sentiment has reached an extreme, and stocks often run into trouble.  This usually happens because the Dumb Money rises above 60%, and the Smart Money drops below 40%.  That is a warning sign for stocks.</p>
+
+<p>When the Dumb Money is below the Smart Money, then sentiment is negative and stocks are usually struggling.  It's best to be defensive at times like this.  However, when sentiment becomes too negative, then stocks are often poised to rally over the next 1-3 months.  This usually occurs because the Dumb Money has dropped below 40% and the Smart Money has risen above 60%.</p>
+
+<p>What is considered "smart" is simply based on an indicator's historical record at extremes.  If an indicator is usually showing excessive pessimism near a market peak, and excessive optimism near a market bottom, then that indicator will be included in our Smart Money calculation.  And if it consistently shows too much pessimism near a low and too much optimism near a high, it will be considered Dumb Money.
+</p>
+<p>Confidence indices are presented on a scale of 0% to 100%.  When the Smart Money Confidence is at 100%, it means that those most correct on market direction are 100% confident of a rising market?and we want to be right alongside them.  When it is at 0%, it means that these good market timers are 0% confident in a rally, and we want to be in cash or even short when confidence is very low. </p>
+
+<p>We can use the Dumb Money Confidence in a similar, but opposite, manner.  For example, if the Dumb Money Confidence is at 100%, then that means that these bad market timers are supremely confident in a market rally.  And history suggests that when these traders are confident, we should be very, very worried that the market is about to decline.  When the Dumb Money Confidence is at 0%, then from a contrary perspective we should be concentrating on the long side, expecting these traders to be wrong again and the market to rally. </p>
+
+<p>In practice, our Confidence Indexes rarely get below 30% or above 70%. </p>
+
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

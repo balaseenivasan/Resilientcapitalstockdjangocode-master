@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    <!--# <script src="http://code.highcharts.com/highcharts.js"></script> Load in jQuery and HighCharts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.6/js/highstock.js"></script>
+
+{% endblock %}
+
+{% block body_block %}
+<div id="container"></div>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+<script>
+  Highcharts.chart('container',{
+    "title": {
+        "text": "% of S&P 500 members above their 50 dma",
+        "align": "left",
+        "x": 10
+     },
+    "subtitle": {
+        "text": "",
+        "align": "left",
+        "x": 10
+    },
+    "plotOptions": {
+        "series": {
+        "allowPointSelect": true,
+        "states": {
+            "select": {
+             "color": "#EFFFEF",
+            "borderColor": "black",
+            "dashStyle": "dot"
+         }
+        },
+        "marker": {
+            "enabled": false
+        },
+        "lineWidth": 2,
+        "events": {
+            "legendItemClick": "function(e){e.preventDefault()}"
+        }
+        }
+    },
+    "exporting": {},
+    "credits": {
+     "text": "",
+        "href": "",
+        "enabled": false
+    },
+
+    "colors": [
+        "#235A61",
+        "#DD495E",
+        "#2A2383",
+        "#F2C60E",
+        "#24CBE5",
+        "#64E572",
+        "#FF9655",
+        "#FFF263",
+        "#6AF9C4"
+    ],
+    "legend": {
+        "align": "left",
+        "verticalAlign": "top",
+        "itemMarginBottom": 10,
+        "x": 0,
+        "symbolRadius": 2
+    },
+    "series": [
+     {
+        "type": "line",
+        "data": {{ sp500_series }},
+        "name": "S&P 500",
+        "tooltip": {
+                    valueDecimals: 2
+               }
+        },
+        {
+         "name": "Chicago Fed",
+        "yAxis": 1,
+        "type": "line",
+        "allowExtendPlayingField": false,
+        "y": -30,
+        "binsNumber": "square-root",
+        "data": {{ dma50_series }},
+
+            tooltip: {
+                    valueDecimals: 2
+             }
+        }
+    ],
+    "chart": {
+        "type": "line",
+        "width": 800,
+        "height": 600,
+     "zoomType": "x"
+    },
+     "stockTools": {
+        "gui": {
+        "buttons": [
+         "simpleShapes",
+            "lines",
+            "crookedLines"
+        ],
+        "enabled": false
+        }
+    },
+    "navigation": {
+        "events": {
+        "showPopup": "function(e){this.chart.indicatorsPopupContainer||(this.chart.indicatorsPopupContainer=document.getElementsByClassName(\"highcharts-popup-indicators\")[0]),this.chart.annotationsPopupContainer||(this.chart.annotationsPopupContainer=document.getElementsByClassName(\"highcharts-popup-annotations\")[0]),\"indicators\"===e.formType?this.chart.indicatorsPopupContainer.style.display=\"block\":\"annotation-toolbar\"===e.formType&&(this.chart.activeButton||(this.chart.currentAnnotation=e.annotation,this.chart.annotationsPopupContainer.style.display=\"block\")),this.popup&&(t=this.popup)}",
+        "closePopup": "function(){this.chart.annotationsPopupContainer.style.display=\"none\",this.chart.currentAnnotation=null}",
+        "selectButton": "function(e){var t=e.button.className+\" highcharts-active\";e.button.classList.contains(\"highcharts-active\")||(e.button.className=t,this.chart.activeButton=e.button)}",
+        "deselectButton": "function(e){e.button.classList.remove(\"highcharts-active\"),this.chart.activeButton=null}"
+        },
+        "bindingsClassName": "tools-container"
+    },
+    "xAxis": {
+        "minPadding": 0,
+        "maxPadding": 0,
+        "overscroll": 0,
+        "ordinal": true,
+        "title": {
+        "text": null
+        },
+        "labels": {
+        "overflow": "justify"
+     },
+        "showLastLabel": true,
+        "type": "datetime",
+        "categories": null,
+        "startOnTick": false,
+        "endOnTick": false,
+        "index": 0,
+        "isX": true,
+        "tickWidth": "0",
+        "categories:{{ date }},
+    },
+    "yAxis": [
+        {
+        "labels": {
+          "y": -2
+        },
+        "opposite": true,
+        "showLastLabel": false,
+        "title": {
+          "text": null
+         },
+         "index": 0,
+        "height": 200,
+         "top": 60
+        },
+        {
+        "labels": {
+         "y": -2
+        },
+         "opposite": true,
+        "showLastLabel": false,
+        "title": {
+            "text": null
+        },
+        "lineWidth": 0,
+        "top": 280,
+        "height": 200,
+        "index": 1
+        }
+    ],
+    "labels": {
+     "items": []
+    },
+    "responsive": {
+        "rules": []
+    },
+    "rangeSelector": {
+        "selected": 5,
+        "buttons": [
+         {
+         "count": 1,
+            "text": "1m",
+            "type": "month"
+        },
+        {
+            "type": "month",
+            "count": 3,
+            "text": "3m"
+        },
+         {
+            "type": "month",
+            "count": 6,
+            "text": "6m"
+        },
+        {
+            " type": "ytd",
+            "text": "YTD"
+        },
+        {
+            "type": "year",
+            "count": 1,
+            "text": "1Y"
+        },
+        {
+            "type": "year",
+            "count": 3,
+            "text": "3Y"
+        },
+        {
+         "type": "all",
+            "text": "All"
+        }
+        ]
+    },
+     "annotations": []
+  })
+
+   </script>
+
+{% endblock %}

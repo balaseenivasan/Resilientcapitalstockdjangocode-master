@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    <!--# <script src="http://code.highcharts.com/highcharts.js"></script> Load in jQuery and HighCharts -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.6/js/highstock.js"></script>
+
+{% endblock %}
+
+{% block body_block %}
+<div id="container"></div>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+<script>
+
+  Highcharts.stockChart('container', {
+      chart: {
+          type: 'line'
+      },
+      rangeSelector: {
+            allButtonsEnabled: true,
+            selected: 2
+        },
+      title: {
+          text: '% of S&P 500 members above their 50 dma'
+      },
+       xAxis: {
+
+
+      type: 'datetime',
+      dateTimeLabelFormats: {
+
+            day: '%e. %b',
+            week: '%e. %b',
+            month: '%b \'%y',
+            year: '%Y'
+        },
+    },
+
+      yAxis: [{
+        lineWidth: 1,
+        height :100,
+        opposite: true,
+        tickposition:'outside',
+
+        visible:true
+
+      }, {
+        lineWidth: 0,
+        height :100,
+        opposite: true,
+        tickposition:'outside',
+        top :170,
+        visible:true,
+
+
+      }],
+
+      series: [{
+          yAxis: 0,
+          name: 'S&P 500',
+          data: {{ sp500_series | safe}},
+          color: 'green',
+          tooltip: {
+                valueDecimals: 2
+            }
+
+      }, {
+          yAxis: 1,
+          xAxis:0,
+          y :-30,
+          name: 'dma50',
+          data: {{ dma50_series | safe }},
+          color: 'red',
+          tooltip: {
+                valueDecimals: 2
+            }
+
+      }]
+  });
+
+
+</script>
+
+{% endblock %}

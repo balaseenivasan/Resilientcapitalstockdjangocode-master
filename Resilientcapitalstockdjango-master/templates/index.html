@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome to the ResilientCapital !</h1>
+    {% if user.is_authenticated %}
+        <h2>Hello {{ user.username }}</h2>
+    {% else %}
+        <h2>Register or Login if you'd like to</h2>
+    {% endif %}
+    <div class="container">
+      <h2>S&P 500 </h2>
+        <ul class="nav navbar-nav">
+
+          <li><a class="navbar-brand" href="{% url 'sp50dma' %}">% of S&P 500 members above their 50 dma</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'sp200dma' %}">% of S&P 500 members above their 200 dma</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'spissues' %}">S&P 500 Up Issues Ratio</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'sprsi70' %}">% of S&P 500 members with RSI > 70</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'sprsi30' %}">% of S&P 500 members with RSI < 30</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'spupperbolinger' %}">% of S&P 500 members above their upper Bollinger Band</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'splowerbolinger' %}">% of S&P 500 members below their lower Bollinger Band</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'sp52weekshigh' %}">% of S&P 500 members at a 52 week high</a></li></br>
+           <li><a class="navbar-brand" href="{% url 'sp52weekslow' %}">% of S&P 500 members at a 52 week low</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'sphighlow' %}">S&P 500 52 week high – 52 week low %</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'sp24weekshigh' %}">% of S&P 500 members at a 24 week high</a></li></br>
+            <li><a class="navbar-brand" href="{% url 'sp24weekslow' %}">% of S&P 500 members at a 24 week low</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'spcorrection' %}">% of S&P 500 members in a correction</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'spbearmarket' %}">% of S&P 500 members in a bear market</a></li></br>
+
+        </ul>
+
+
+      </div>
+    <div class="container">
+      <h2>NASDAQ </h2>
+        <ul class="nav navbar-nav">
+
+          <li><a class="navbar-brand" href="{% url 'nasdaq50dma' %}">% of NASDAQ 100 members above their 50 dma</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaq200dma' %}">% of NASDAQ 100 members above their 200 dma</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaqissues' %}">NASDAQ 100 Up Issues Ratio</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaqrsi70' %}">% of NASDAQ 100 members with RSI > 70</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaqrsi30' %}">% of NASDAQ 100 members with RSI < 30</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaqupperbolinger' %}">% of NASDAQ 100 members above their upper Bollinger Band</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaqlowerbolinger' %}">% of NASDAQ 100 members below their lower Bollinger Band</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaq52weekshigh' %}">% of NASDAQ 100 members at a 52 week high</a></li></br>
+           <li><a class="navbar-brand" href="{% url 'nasdaq52weekslow' %}">% of NASDAQ 100 members at a 52 week low</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaqhighlow' %}">NASDAQ 100 52 week high – 52 week low %</a></li></br>
+          <li><a class="navbar-brand" href="{% url 'nasdaq24weekshigh' %}">% of NASDAQ 100 members at a 24 week high</a></li></br>
+            <li><a class="navbar-brand" href="{% url 'nasdaq24weekslow' %}">% of NASDAQ 100 members at a 24 week low</a></li></br>
+
+
+        </ul>
+
+
+      </div>
+  </div>
+
+</div>
+{% endblock %}
