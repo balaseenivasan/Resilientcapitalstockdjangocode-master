@@ -3,7 +3,7 @@ APScheduler==3.6.3
 asgiref==3.2.7
 awsebcli==3.18.1
 beautifulsoup4==4.8.2
-bleach==3.1.1
+bleach==3.3.0
 botocore==1.15.49
 bs4==0.0.1
 bson==0.5.10
