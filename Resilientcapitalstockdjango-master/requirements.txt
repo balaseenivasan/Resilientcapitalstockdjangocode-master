@@ -106,7 +106,7 @@ trading==0.1
 twine==3.1.1
 tzlocal==2.1
 uritemplate==3.0.1
-urllib3==1.24.3
+urllib3==1.26.5
 virtualenv==20.0.21
 virtualenv-clone==0.5.4
 virtualenvwrapper==4.8.4
