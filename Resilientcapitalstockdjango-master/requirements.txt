@@ -9,7 +9,7 @@ bs4==0.0.1
 bson==0.5.10
 cachetools==4.0.0
 cement==2.8.2
-certifi==2019.9.11
+certifi==2022.12.7
 cffi==1.14.0
 chardet==3.0.4
 colorama==0.4.3
